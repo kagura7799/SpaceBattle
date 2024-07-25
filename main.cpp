@@ -1,52 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
-
-class Bullet
-{
-public:
-    Bullet(float x, float y)
-    {
-        shape.setRadius(5.f);
-        shape.setFillColor(sf::Color::Red);
-        shape.setPosition(x, y);
-    }
-
-    void update()
-    {
-        shape.move(0.f, -8.f);
-    }
-
-    sf::CircleShape shape;
-};
-
-class Player
-{
-public:
-    Player()
-    {
-        player.setRadius(30.f);
-        player.setFillColor(sf::Color::Green);
-        player.setPosition(570.f, 900.f);
-    }
-
-    void move(float dx, float dy)
-    {
-        player.move(dx, dy);
-    }
-
-    void draw(sf::RenderWindow& window)
-    {
-        window.draw(player);
-    }
-
-    sf::Vector2f getPosition()
-    {
-        return player.getPosition();
-    }
-
-    sf::CircleShape player;
-};
+#include <random>
+#include <Windows.h>
+#include "Bullet.hpp"
+#include "Enemy.hpp"
+#include "Player.hpp"
 
 int main()
 {
@@ -54,6 +13,12 @@ int main()
     window.setFramerateLimit(60);
 
     Player player;
+    Enemy enemy;
+    for (int i = 0; i < 5; i++)
+    {
+        enemy.move();
+    }
+
     std::vector<Bullet> bullets;
 
     while (window.isOpen())
@@ -99,10 +64,11 @@ int main()
 
         window.clear();
         player.draw(window);
+        enemy.draw(window);
 
         for (auto& bullet : bullets)
         {
-            window.draw(bullet.shape);
+            window.draw(bullet.bullet_shape);
         }
 
         window.display();
