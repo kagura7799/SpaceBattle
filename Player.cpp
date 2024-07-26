@@ -3,8 +3,8 @@
 
 Player::Player()
 {
-    player.setRadius(30.f);
-    player.setFillColor(sf::Color::Green);
+    player.setRadius(35.f);
+    player.setFillColor(sf::Color::White);
     player.setPosition(570.f, 900.f);
 }
 

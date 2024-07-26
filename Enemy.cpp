@@ -17,7 +17,7 @@ Enemy::Enemy()
     int randSpawnPositionX = getRandomNumber(30, 800);
 
     enemyShape.setRadius(30.f);
-    enemyShape.setFillColor(sf::Color::Magenta);
+    enemyShape.setFillColor(sf::Color::Red);
     enemyShape.setPosition(randSpawnPositionX, 10);
 }
 
