@@ -3,7 +3,7 @@
 Bullet::Bullet(float x, float y)
 {
     bullet_shape.setRadius(10.f);
-    bullet_shape.setFillColor(sf::Color::Red);
+    bullet_shape.setFillColor(sf::Color::Blue);
     bullet_shape.setPosition(x, y);
 }
 
