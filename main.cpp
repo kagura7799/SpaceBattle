@@ -11,13 +11,18 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(1200, 1000), "Space Battle");
     sf::Clock clock;
+    sf::Clock spawnClock;
+    sf::Clock shootClock;
+
     sf::Time delayEnemyMovement = sf::seconds(0.3);
+    sf::Time delaySpawnEnemy = sf::seconds(3);
+    sf::Time delayShootPlayer = sf::seconds(0.5);
 
     window.setFramerateLimit(60);
 
     Player player;
-    Enemy enemy;
 
+    std::vector<Enemy> enemies;
     std::vector<Bullet> bullets;
 
     while (window.isOpen())
@@ -31,12 +36,19 @@ int main()
             }
         }
 
-        sf::Clock deltaClock;
-        sf::Time deltaTime = deltaClock.restart();
+        if (spawnClock.getElapsedTime() >= delaySpawnEnemy)
+        {
+            std::cout << "spawn" << std::endl;
+            enemies.emplace_back();
+            spawnClock.restart();
+        }
 
         if (clock.getElapsedTime() >= delayEnemyMovement)
         {
-            enemy.move();
+            for (auto& enemy : enemies)
+            {
+                enemy.move();
+            }
             clock.restart();
         }
         
@@ -62,7 +74,11 @@ int main()
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
-            bullets.emplace_back(player.getPosition().x + player.player.getRadius(), player.getPosition().y);
+            if (shootClock.getElapsedTime() >= delayShootPlayer)
+            {
+                bullets.emplace_back(player.getPosition().x + player.player.getRadius(), player.getPosition().y);
+                shootClock.restart();
+            }
         }
 
         for (auto& bullet : bullets)
@@ -72,15 +88,17 @@ int main()
 
         window.clear();
 
-        enemy.draw(window);
-
-        player.draw(window);
-
         for (auto& bullet : bullets)
         {
             window.draw(bullet.bullet_shape);
         }
 
+        for (auto& enemy : enemies)
+        {
+            enemy.draw(window);
+        }
+
+        player.draw(window);
         window.display();
     }
 
