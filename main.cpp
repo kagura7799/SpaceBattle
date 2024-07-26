@@ -10,14 +10,13 @@
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1200, 1000), "Space Battle");
+    sf::Clock clock;
+    sf::Time delayEnemyMovement = sf::seconds(0.3);
+
     window.setFramerateLimit(60);
 
     Player player;
     Enemy enemy;
-    for (int i = 0; i < 5; i++)
-    {
-        enemy.move();
-    }
 
     std::vector<Bullet> bullets;
 
@@ -32,24 +31,33 @@ int main()
             }
         }
 
+        sf::Clock deltaClock;
+        sf::Time deltaTime = deltaClock.restart();
+
+        if (clock.getElapsedTime() >= delayEnemyMovement)
+        {
+            enemy.move();
+            clock.restart();
+        }
+        
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         {
-            player.move(-10.f, 0.f);
+            player.move(-8.f, 0.f);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
-            player.move(10.f, 0.f);
+            player.move(8.f, 0.f);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         {
-            player.move(0.f, -10.f);
+            player.move(0.f, -8.f);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
-            player.move(0.f, 7.f);
+            player.move(0.f, 8.f);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
@@ -63,8 +71,10 @@ int main()
         }
 
         window.clear();
-        player.draw(window);
+
         enemy.draw(window);
+
+        player.draw(window);
 
         for (auto& bullet : bullets)
         {

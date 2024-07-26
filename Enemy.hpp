@@ -14,9 +14,9 @@ public:
 private:
     int getRandomNumber(int min, int max);
 
-    // int randSpawnPositionX = getRandomNumber(200, 1100);
-    // int randMovementX = getRandomNumber(10, 50);
-    // int randMovementY = getRandomNumber(10, 50);
+    int randSpawnPositionX;
+    int randMovementX;
+    int randMovementY;
 };
 
 #endif // ENEMY_HPP

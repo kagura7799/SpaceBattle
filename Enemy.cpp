@@ -12,23 +12,20 @@ int Enemy::getRandomNumber(int min, int max)
     return dis(gen);
 }
 
-// TODO: fix error
-//int randSpawnPositionX = getRandomNumber(200, 1100);
-//int randMovementX = getRandomNumber(10, 50);
-//int randMovementY = getRandomNumber(10, 50);
-
 Enemy::Enemy()
 {
+    int randSpawnPositionX = getRandomNumber(30, 800);
+
     enemyShape.setRadius(30.f);
     enemyShape.setFillColor(sf::Color::Magenta);
-    enemyShape.setPosition(randSpawnPositionX, -20.f);
-
-    std::cout << "spawn pos: " << randSpawnPositionX << std::endl;
-    std::cout << "X: " << randMovementX << "Y: " << randMovementY << std::endl;
+    enemyShape.setPosition(randSpawnPositionX, 10);
 }
 
 void Enemy::move()
 {
+    int randMovementX = getRandomNumber(-10.f, 20.f);
+    int randMovementY = getRandomNumber(-10.f, 30.f);
+
     enemyShape.move(randMovementX, randMovementY);
 }
 
