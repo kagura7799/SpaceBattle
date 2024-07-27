@@ -3,7 +3,7 @@
 #include <vector>
 #include <random>
 #include <Windows.h>
-#include "Bullet.hpp"
+#include "PlayerBullet.hpp"
 #include "Enemy.hpp"
 #include "Player.hpp"
 
@@ -12,7 +12,6 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1200, 1000), "Space Battle");
     sf::Clock clock;
     sf::Clock spawnClock;
-    sf::Clock shootClock;
 
     sf::Time delayEnemyMovement = sf::seconds(0.3);
     sf::Time delaySpawnEnemy = sf::seconds(3);
@@ -23,7 +22,6 @@ int main()
     Player player;
 
     std::vector<Enemy> enemies;
-    std::vector<Bullet> bullets;
 
     while (window.isOpen())
     {
@@ -51,47 +49,11 @@ int main()
             }
             clock.restart();
         }
-        
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        {
-            player.move(-8.f, 0.f);
-        }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        {
-            player.move(8.f, 0.f);
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        {
-            player.move(0.f, -8.f);
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        {
-            player.move(0.f, 8.f);
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-        {
-            if (shootClock.getElapsedTime() >= delayShootPlayer)
-            {
-                bullets.emplace_back(player.getPosition().x + player.player.getRadius(), player.getPosition().y);
-                shootClock.restart();
-            }
-        }
-
-        for (auto& bullet : bullets)
-        {
-            bullet.update();
-        }
+        player.movement();
+        player.shooting(window);
 
         window.clear();
-
-        for (auto& bullet : bullets)
-        {
-            window.draw(bullet.bullet_shape);
-        }
 
         for (auto& enemy : enemies)
         {

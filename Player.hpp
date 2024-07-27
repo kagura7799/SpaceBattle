@@ -2,17 +2,22 @@
 #define PLAYER_HPP
 
 #include <SFML/Graphics.hpp>
+#include "PlayerBullet.hpp"
 
 class Player
 {
 public:
     Player();
 
-    void move(float dx, float dy);
+    std::vector<PlayerBullet> bullets;
+
+    void movement();
+    void shooting(sf::RenderWindow& window);
     void draw(sf::RenderWindow& window);
 
-    sf::Vector2f getPosition();
+private:
     sf::CircleShape player;
+    sf::Clock shootClock;
 };
 
 #endif // PLAYER_HPP
