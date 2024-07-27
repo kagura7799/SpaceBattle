@@ -6,8 +6,8 @@
 class Bullet
 {
 public:
-    Bullet(float x, float y);
-    void update();
+    Bullet(float x, float y, sf::Color color);
+    void update(float y);
     sf::CircleShape bullet_shape;
 };
 

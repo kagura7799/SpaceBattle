@@ -3,25 +3,17 @@
 #include <vector>
 #include <random>
 #include <Windows.h>
-#include "PlayerBullet.hpp"
+#include "Bullet.hpp"
 #include "Enemy.hpp"
 #include "Player.hpp"
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1200, 1000), "Space Battle");
-    sf::Clock clock;
-    sf::Clock spawnClock;
-
-    sf::Time delayEnemyMovement = sf::seconds(0.3);
-    sf::Time delaySpawnEnemy = sf::seconds(3);
-    sf::Time delayShootPlayer = sf::seconds(0.5);
-
     window.setFramerateLimit(60);
 
     Player player;
-
-    std::vector<Enemy> enemies;
+    Enemy enemy;
 
     while (window.isOpen())
     {
@@ -33,34 +25,17 @@ int main()
                 window.close();
             }
         }
-
-        if (spawnClock.getElapsedTime() >= delaySpawnEnemy)
-        {
-            std::cout << "spawn" << std::endl;
-            enemies.emplace_back();
-            spawnClock.restart();
-        }
-
-        if (clock.getElapsedTime() >= delayEnemyMovement)
-        {
-            for (auto& enemy : enemies)
-            {
-                enemy.move();
-            }
-            clock.restart();
-        }
+        window.clear();
 
         player.movement();
         player.shooting(window);
-
-        window.clear();
-
-        for (auto& enemy : enemies)
-        {
-            enemy.draw(window);
-        }
-
         player.draw(window);
+
+        enemy.spawn();
+        enemy.movement();
+        enemy.shooting();
+        enemy.draw(window);
+
         window.display();
     }
 

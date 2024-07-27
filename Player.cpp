@@ -34,12 +34,12 @@ void Player::movement()
 void Player::shooting(sf::RenderWindow& window) 
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && shootClock.getElapsedTime().asSeconds() > 0.5f) {
-        bullets.emplace_back(player.getPosition().x + player.getRadius(), player.getPosition().y);
+        bullets.emplace_back(player.getPosition().x + player.getRadius(), player.getPosition().y, sf::Color::Blue);
         shootClock.restart();
     }
 
     for (auto& bullet : bullets) {
-        bullet.update();
+        bullet.update(-12.f);
     }
 }
 
@@ -47,7 +47,8 @@ void Player::draw(sf::RenderWindow& window)
 {
     window.draw(player);
 
-    for (auto& bullet : bullets) {
+    for (auto& bullet : bullets) 
+    {
         window.draw(bullet.bullet_shape);
     }
 }

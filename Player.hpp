@@ -2,14 +2,14 @@
 #define PLAYER_HPP
 
 #include <SFML/Graphics.hpp>
-#include "PlayerBullet.hpp"
+#include "Bullet.hpp"
 
 class Player
 {
 public:
     Player();
 
-    std::vector<PlayerBullet> bullets;
+    std::vector<Bullet> bullets;
 
     void movement();
     void shooting(sf::RenderWindow& window);

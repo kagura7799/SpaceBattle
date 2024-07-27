@@ -14,24 +14,63 @@ int Enemy::getRandomNumber(int min, int max)
 
 Enemy::Enemy()
 {
-    int randSpawnPositionX = getRandomNumber(30, 800);
+    randSpawnPositionX = getRandomNumber(30, 800);
 
     enemyShape.setRadius(30.f);
     enemyShape.setFillColor(sf::Color::Red);
-    enemyShape.setPosition(randSpawnPositionX, 10);
+    enemyShape.setPosition(randSpawnPositionX, 10.f);
 }
 
-void Enemy::move()
+void Enemy::spawn()
 {
-    int randMovementX = getRandomNumber(-10.f, 20.f);
-    int randMovementY = getRandomNumber(-10.f, 30.f);
+    if (spawnClock.getElapsedTime().asSeconds() > 3.f)
+    {
+        enemies.emplace_back();
+        spawnClock.restart();
+    }
+}
 
-    enemyShape.move(randMovementX, randMovementY);
+void Enemy::movement()
+{
+    if (movementClock.getElapsedTime().asSeconds() > 0.3f)
+    {
+        randMovementX = getRandomNumber(-10.f, 20.f);
+        randMovementY = getRandomNumber(-10.f, 30.f);
+
+        for (auto& enemy : enemies)
+        {
+            enemy.enemyShape.move(randMovementX, randMovementY);
+        }
+        movementClock.restart();
+    }
+}
+
+void Enemy::shooting()
+{
+    if (shootingEnemyClock.getElapsedTime().asSeconds() > 0.8f)
+    {
+        for (auto& enemy : enemies)
+        {
+            bullets.emplace_back(enemy.enemyShape.getPosition().x + enemy.enemyShape.getRadius(), enemy.enemyShape.getPosition().y, sf::Color::Red);
+        }
+        shootingEnemyClock.restart();
+    }
+
+    for (auto& bullet : bullets)
+    {
+        bullet.update(10.f);
+    }
 }
 
 void Enemy::draw(sf::RenderWindow& window)
-{
-    window.draw(enemyShape);
-}
+{   
+    for (auto& enemy : enemies)
+    {
+        window.draw(enemy.enemyShape);
+    }
 
-sf::CircleShape enemyShape;
+    for (auto& bullet : bullets)
+    {
+        window.draw(bullet.bullet_shape);
+    }
+}
