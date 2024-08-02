@@ -11,5 +11,3 @@ void Bullet::update(float y)
 {
     bullet_shape.move(0.f, y);
 }
-
-sf::CircleShape bullet_shape;

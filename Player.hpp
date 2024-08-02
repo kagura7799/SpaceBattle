@@ -10,13 +10,14 @@ public:
     Player();
 
     std::vector<Bullet> bullets;
-
+    std::vector<Bullet>& getBullets();
     void movement();
     void shooting(sf::RenderWindow& window);
     void draw(sf::RenderWindow& window);
+    sf::FloatRect getBounds() const;
+    sf::CircleShape playerShape;
 
 private:
-    sf::CircleShape player;
     sf::Clock shootClock;
 };
 

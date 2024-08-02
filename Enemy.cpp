@@ -34,11 +34,10 @@ void Enemy::movement()
 {
     if (movementClock.getElapsedTime().asSeconds() > 0.3f)
     {
-        randMovementX = getRandomNumber(-10.f, 20.f);
-        randMovementY = getRandomNumber(-10.f, 30.f);
-
         for (auto& enemy : enemies)
         {
+            randMovementX = getRandomNumber(-10.f, 20.f);
+            randMovementY = getRandomNumber(-10.f, 30.f);
             enemy.enemyShape.move(randMovementX, randMovementY);
         }
         movementClock.restart();
@@ -73,4 +72,40 @@ void Enemy::draw(sf::RenderWindow& window)
     {
         window.draw(bullet.bullet_shape);
     }
+}
+
+sf::FloatRect Enemy::getBounds()
+{
+    return enemyShape.getGlobalBounds();
+}
+
+std::vector<size_t> Enemy::checkCollisionWithBullets(const std::vector<Bullet>& bullets) const
+{
+    std::vector<size_t> collisionIndices;
+    for (size_t i = 0; i < bullets.size(); ++i)
+    {
+        if (enemyShape.getGlobalBounds().intersects(bullets[i].bullet_shape.getGlobalBounds()))
+        {
+            collisionIndices.push_back(i);
+        }
+    }
+    return collisionIndices;
+}
+
+std::vector<Enemy> Enemy::getEnemies()
+{
+    return enemies;
+}
+
+void Enemy::removeEnemy(size_t index)
+{
+    if (index < enemies.size())
+    {
+        enemies.erase(enemies.begin() + index);
+    }
+}
+
+std::vector<Bullet> Enemy::getEnemyBullets()
+{
+    return bullets;
 }
