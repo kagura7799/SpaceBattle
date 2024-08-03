@@ -11,9 +11,12 @@ public:
 
     std::vector<Bullet> bullets;
     std::vector<Bullet>& getBullets();
+
     void movement();
+    sf::Vector2f getPosition();
     void shooting(sf::RenderWindow& window);
     void draw(sf::RenderWindow& window);
+
     sf::FloatRect getBounds() const;
     sf::CircleShape playerShape;
 

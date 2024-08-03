@@ -28,7 +28,8 @@ int main()
 
         window.clear();
 
-        Collision(enemyManager, player, window);
+        collision(enemyManager, player, window);
+        handlePlayerEnemyCollision(player, enemyManager);
 
         enemyManager.spawn();
         enemyManager.movement();

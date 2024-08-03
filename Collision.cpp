@@ -2,7 +2,7 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 
-void Collision(Enemy enemyManager, Player player, sf::RenderWindow& window)
+inline void collision(Enemy& enemyManager, Player& player, sf::RenderWindow& window)
 {
     std::vector<size_t> enemiesToRemove;
     std::vector<size_t> bulletsToRemove;
@@ -41,4 +41,28 @@ void Collision(Enemy enemyManager, Player player, sf::RenderWindow& window)
             window.close();
         }
     }
+}
+
+inline void handlePlayerEnemyCollision(Player& player, Enemy& enemy)
+{
+    std::vector<Enemy> enemies = enemy.getEnemies();
+
+    for (auto& enemy : enemies)
+    {
+        if (player.getBounds().intersects(enemy.getBounds()))
+        {
+            sf::Vector2f playerPos = player.getPosition();
+            sf::Vector2f enemyPos = enemy.getPosition();
+
+            sf::Vector2f direction = playerPos - enemyPos;
+            float length = sqrt(direction.x * direction.x + direction.y * direction.y);
+            if (length != 0)
+            {
+                direction /= length;
+            }
+
+            player.playerShape.setPosition(playerPos + direction * 10.f);
+        }
+    }
+    
 }

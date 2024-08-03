@@ -109,3 +109,9 @@ std::vector<Bullet> Enemy::getEnemyBullets()
 {
     return bullets;
 }
+
+sf::Vector2f Enemy::getPosition()
+{
+    return enemyShape.getPosition();
+}
+

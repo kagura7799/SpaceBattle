@@ -64,3 +64,8 @@ std::vector<Bullet>& Player::getBullets()
 {
     return bullets;
 }
+
+sf::Vector2f Player::getPosition()
+{
+    return playerShape.getPosition();
+}

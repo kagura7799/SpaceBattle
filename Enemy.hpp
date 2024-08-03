@@ -15,6 +15,7 @@ public:
     void shooting();
     void draw(sf::RenderWindow& window);
     void removeEnemy(size_t index);
+    sf::Vector2f getPosition();
 
     std::vector<Bullet> getEnemyBullets();
     std::vector<Enemy> getEnemies();
