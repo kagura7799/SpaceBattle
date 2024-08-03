@@ -12,22 +12,22 @@ void Player::movement()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) 
     {
-        playerShape.move(-8.f, 0.f);
+        playerShape.move(-10.f, 0.f);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
     {
-        playerShape.move(8.f, 0.f);
+        playerShape.move(10.f, 0.f);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
     {
-        playerShape.move(0.f, -8.f);
+        playerShape.move(0.f, -10.f);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) 
     {
-        playerShape.move(0.f, 8.f);
+        playerShape.move(0.f, 10.f);
     }
 }
 
@@ -41,7 +41,7 @@ void Player::shooting(sf::RenderWindow& window)
 
     for (auto& bullet : bullets) 
     {
-        bullet.update(-12.f);
+        bullet.update(-17.f);
     }
 }
 

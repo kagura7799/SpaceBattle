@@ -23,7 +23,7 @@ Enemy::Enemy()
 
 void Enemy::spawn()
 {
-    if (spawnClock.getElapsedTime().asSeconds() > 3.f)
+    if (spawnClock.getElapsedTime().asSeconds() > 1.5f)
     {
         enemies.emplace_back();
         spawnClock.restart();
@@ -32,12 +32,12 @@ void Enemy::spawn()
 
 void Enemy::movement()
 {
-    if (movementClock.getElapsedTime().asSeconds() > 0.3f)
+    if (movementClock.getElapsedTime().asSeconds() > 0.2f)
     {
         for (auto& enemy : enemies)
         {
-            randMovementX = getRandomNumber(-10.f, 20.f);
-            randMovementY = getRandomNumber(-10.f, 30.f);
+            randMovementX = getRandomNumber(-15.f, 25.f);
+            randMovementY = getRandomNumber(-15.f, 35.f);
             enemy.enemyShape.move(randMovementX, randMovementY);
         }
         movementClock.restart();
@@ -46,7 +46,7 @@ void Enemy::movement()
 
 void Enemy::shooting()
 {
-    if (shootingEnemyClock.getElapsedTime().asSeconds() > 0.8f)
+    if (shootingEnemyClock.getElapsedTime().asSeconds() > 1.2f)
     {
         for (auto& enemy : enemies)
         {
@@ -57,7 +57,7 @@ void Enemy::shooting()
 
     for (auto& bullet : bullets)
     {
-        bullet.update(10.f);
+        bullet.update(15.f);
     }
 }
 
